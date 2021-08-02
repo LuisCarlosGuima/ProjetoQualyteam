@@ -1,0 +1,72 @@
+﻿@model IEnumerable<ProjetoQualyteam.Models.Arquivo>
+
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<script type="text/javascript">
+    function x() {
+        
+        $.ajax({
+            url: 'Arquivo/Index',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(1, true)
+        }).done(function (response) {
+            console.log(response.saldo);
+            $('#saldoFinal').val(response.saldo);
+            $('#quantidadeDeOperacoes').html(response.transacoes);
+
+        });
+    }
+</script>
+
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th onclick="x()">
+                @Html.DisplayNameFor(model => model.id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.processo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.categoria)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.processo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.categoria)
+                </td>
+                <td>
+                    <a type="button" class="btn btn-primary btn-sm" asp-action="Details" asp-route-id="@item.id">Detalhes</a>
+                    <a type="button" class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.id">Editar</a>                    
+                    <a type="button" class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.id">Deletar</a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>
+<p>
+    <a type="button" class="btn btn-primary btn-sm" asp-action="Create">Criar novo arquivo</a>
+</p>

@@ -1,0 +1,54 @@
+﻿@model ProjetoQualyteam.Models.Arquivo
+
+@{
+    ViewData["Title"] = "Criar";
+}
+
+<h1>Projeto Qualyteam</h1>
+
+<h4>Arquivo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div class="form-group">
+                <label asp-for="id" class="control-label"></label>
+                <input required asp-for="id" class="form-control" min="1" />
+                <span asp-validation-for="id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="titulo" class="control-label"></label>
+                <input required asp-for="titulo" class="form-control" />
+                <span asp-validation-for="titulo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="processo" class="control-label"></label>
+                <input required asp-for="processo" class="form-control" />
+                <span asp-validation-for="processo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="categoria" class="control-label"></label>
+                <input required asp-for="categoria" class="form-control" />
+                <span asp-validation-for="categoria" class="text-danger"></span>
+            </div>
+
+            <div>
+                <input required class="form-control" name="UploadArquivo" type="file" accept="application/pdf,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel,application/vnd.ms-word, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
+                <br />
+            </div>
+
+            <div class="form-group">
+                <input class="btn btn-success btn-sm" type="submit" value="Upload" />
+                <a type="button" class="btn btn-primary btn-sm" asp-action="Index">Voltar para a lista</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

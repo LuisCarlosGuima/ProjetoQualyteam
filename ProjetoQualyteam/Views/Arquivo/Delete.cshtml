@@ -1,0 +1,34 @@
+﻿@model ProjetoQualyteam.Models.Arquivo
+
+@{
+    ViewData["Title"] = "Excluir";
+}
+
+<h3>Você tem certeza?</h3>
+<div>
+    <table class="table table-striped">
+        <tr>
+            <th class="col-sm-15">
+                @Html.DisplayNameFor(model => model.titulo):  @Html.DisplayFor(model => model.titulo)
+            </th>
+        </tr>
+        <tr>
+            <th class="col-sm-15">
+
+                @Html.DisplayNameFor(model => model.processo):  @Html.DisplayFor(model => model.processo)
+            </th>
+        </tr>
+        <tr>
+            <th class="col-sm-15">
+                @Html.DisplayNameFor(model => model.categoria):  @Html.DisplayFor(model => model.categoria)
+            </th>
+        </tr>
+    </table>
+</div>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="id" />
+        <input type="submit" value="Deletar" class="btn btn-danger btn-sm" />
+        <a type="button" class="btn btn-primary btn-sm" asp-action="Index">Voltar para a lista</a>
+    </form>
+</div>

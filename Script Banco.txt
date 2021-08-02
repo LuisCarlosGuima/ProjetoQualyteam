@@ -1,0 +1,14 @@
+create database projetoqualyteam;
+
+create table arquivo(
+id serial,
+titulo text,
+processo text,
+categoria text,
+Arquivofile mediumblob,
+extensaoarquivo varchar(5)
+);
+
+CREATE USER 'projetoqualyteam'@'%' IDENTIFIED BY 'Projeto#123';
+GRANT select, create,update,insert,delete ON projetoqualyteam.* TO 'projetoqualyteam'@'%';
+FLUSH PRIVILEGES;
