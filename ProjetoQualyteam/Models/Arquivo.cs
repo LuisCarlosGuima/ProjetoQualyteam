@@ -30,7 +30,7 @@ namespace ProjetoQualyteam.Models
         public string processo { get; set; }
 
         [Required]
-        [Display(Name = "categoria")]
+        [Display(Name = "Categoria")]
         [Column("categoria")]
         public string categoria { get; set; }
         
