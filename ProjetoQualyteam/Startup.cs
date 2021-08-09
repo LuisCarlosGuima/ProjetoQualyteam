@@ -54,7 +54,7 @@ namespace ProjetoQualyteam
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Arquivo}/{action=Index}/{id?}");
+                    pattern: "{controller=Documento}/{action=Index}/{Id?}");
             });
         }
     }

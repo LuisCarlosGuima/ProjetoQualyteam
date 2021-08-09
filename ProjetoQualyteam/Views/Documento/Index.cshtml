@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ProjetoQualyteam.Models.Documento>
+
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Processo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Categoria)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Processo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Categoria)
+                </td>
+                <td>
+                    <a type="button" class="btn btn-primary btn-sm" asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
+                    <a type="button" class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.Id">Editar</a>                    
+                    <a type="button" class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">Deletar</a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>
+<p>
+    <a type="button" class="btn btn-primary btn-sm" asp-action="Create">Criar novo arquivo</a>
+</p>

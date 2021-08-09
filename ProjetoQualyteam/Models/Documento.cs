@@ -11,34 +11,34 @@ using System.Threading.Tasks;
 namespace ProjetoQualyteam.Models
 {
     [Table("arquivo")]
-    public class Arquivo
+    public class Documento
     {
         [Required]
         
         [Display(Name = "Código")]
-        [Column("id")]
-        public int id { get; set; }
+        [Column("Id")]
+        public int Id { get; set; }
 
         [Required]
-        [Display(Name = "Titulo")]
-        [Column("titulo")]
-        public string titulo { get; set; }
+        [Display(Name = "Título")]
+        [Column("Titulo")]
+        public string Titulo { get; set; }
 
         [Required]
         [Display(Name = "Processo")]
-        [Column("processo")]
-        public string processo { get; set; }
+        [Column("Processo")]
+        public string Processo { get; set; }
 
         [Required]
         [Display(Name = "Categoria")]
-        [Column("categoria")]
-        public string categoria { get; set; }
+        [Column("Categoria")]
+        public string Categoria { get; set; }
         
         [Column("extensaoarquivo")]
-        public string Extensaoarquivo { get; set; }
+        public string ExtensaoDoArquivo { get; set; }
 
-        [MaxLength]
-        public byte[] Arquivofile { get; set; }
+        [Column("Arquivofile")]
+        public byte[] Arquivo { get; set; }
 
     }
 }

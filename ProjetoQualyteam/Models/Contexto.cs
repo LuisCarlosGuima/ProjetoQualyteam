@@ -14,7 +14,7 @@ namespace ProjetoQualyteam.Models
             Database.EnsureCreated();
         }
             
-        public DbSet<Arquivo> arquivos { get; set; }
+        public DbSet<Documento> Documentos { get; set; }
 
     }
 }

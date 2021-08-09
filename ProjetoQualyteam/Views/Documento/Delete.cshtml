@@ -1,4 +1,4 @@
-﻿@model ProjetoQualyteam.Models.Arquivo
+﻿@model ProjetoQualyteam.Models.Documento
 
 @{
     ViewData["Title"] = "Excluir";
@@ -9,25 +9,25 @@
     <table class="table table-striped">
         <tr>
             <th class="col-sm-15">
-                @Html.DisplayNameFor(model => model.titulo):  @Html.DisplayFor(model => model.titulo)
+                @Html.DisplayNameFor(model => model.Titulo):  @Html.DisplayFor(model => model.Titulo)
             </th>
         </tr>
         <tr>
             <th class="col-sm-15">
 
-                @Html.DisplayNameFor(model => model.processo):  @Html.DisplayFor(model => model.processo)
+                @Html.DisplayNameFor(model => model.Processo):  @Html.DisplayFor(model => model.Processo)
             </th>
         </tr>
         <tr>
             <th class="col-sm-15">
-                @Html.DisplayNameFor(model => model.categoria):  @Html.DisplayFor(model => model.categoria)
+                @Html.DisplayNameFor(model => model.Categoria):  @Html.DisplayFor(model => model.Categoria)
             </th>
         </tr>
     </table>
 </div>
-    
+<div>
     <form asp-action="Delete">
-        <input type="hidden" asp-for="id" />
+        <input type="hidden" asp-for="Id" />
         <input type="submit" value="Deletar" class="btn btn-danger btn-sm" />
         <a type="button" class="btn btn-primary btn-sm" asp-action="Index">Voltar para a lista</a>
     </form>

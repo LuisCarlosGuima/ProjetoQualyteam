@@ -1,0 +1,32 @@
+﻿@model ProjetoQualyteam.Models.Documento
+
+@{
+    ViewData["Title"] = "Detalhe";
+}
+
+<div>
+    <h4>Detalhes do arquivo</h4>
+    <table class="table table-striped">
+        <tr>
+            <th class="col-sm-15">
+                @Html.DisplayNameFor(model => model.Titulo):  @Html.DisplayFor(model => model.Titulo)
+            </th>
+        </tr>
+        <tr>
+            <th class="col-sm-15">
+
+                @Html.DisplayNameFor(model => model.Processo):  @Html.DisplayFor(model => model.Processo)
+            </th>
+        </tr>
+        <tr>
+            <th class="col-sm-15">
+                @Html.DisplayNameFor(model => model.Categoria):  @Html.DisplayFor(model => model.Categoria)
+            </th>
+        </tr>
+    </table>
+</div>
+<div>
+    <a type="button" class="btn btn-success btn-sm" asp-action="Download" asp-route-id="@Model.Id">Baixar</a>
+    <a type="button" class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
+    <a type="button" class="btn btn-primary btn-sm" asp-action="Index">Voltar para a lista</a>
+</div>
