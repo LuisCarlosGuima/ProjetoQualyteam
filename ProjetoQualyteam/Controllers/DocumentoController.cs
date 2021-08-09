@@ -90,9 +90,6 @@ namespace ProjetoQualyteam.Controllers
             }
             fileStream.Close();
 
-            //Não é mesmo um problema pro projeto aqui
-            //Pra algo maior é... mas aqui tá safe
-
             new ToastContentBuilder()
                 .AddText("Download realizado com sucesso!")
                 .AddText($"Arquivo foi salvo em: {caminhoDoArquivo}")
