@@ -39,6 +39,17 @@ namespace ProjetoQualyteam.Models
 
         [Column("Arquivofile")]
         public byte[] Arquivo { get; set; }
+    }
 
+    [Table("Processo")]
+    public class Processo
+    {
+        [Required]
+        [Column("Processo")]
+        [Display(Name="Nome do Processo")]
+        public string NovoProcesso { get; set; }
+
+        [Key]
+        public int Id { get; set; }
     }
 }

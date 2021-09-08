@@ -20,7 +20,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Categoria)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -41,10 +40,11 @@
                 </td>
                 <td>
                     <a type="button" class="btn btn-primary btn-sm" asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
-                    <a type="button" class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.Id">Editar</a>                    
+                    <a type="button" class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
                     <a type="button" class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">Deletar</a>
                 </td>
             </tr>
+
         }
 
     </tbody>

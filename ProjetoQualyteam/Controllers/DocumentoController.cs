@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace ProjetoQualyteam.Controllers
         private readonly IWebHostEnvironment _hostEnvironment;
 
         public DocumentoController(Contexto context, IWebHostEnvironment hostEnvironment)
-        {                       
+        {
             _context = context;
             this._hostEnvironment = hostEnvironment;
         }
@@ -41,7 +42,7 @@ namespace ProjetoQualyteam.Controllers
 
         public async Task<IActionResult> Index()
             => View(await _context.Documentos.OrderBy(documento => documento.Titulo).ToListAsync());
-        
+
 
         public async Task<IActionResult> Details(int? id)
         {
@@ -60,9 +61,9 @@ namespace ProjetoQualyteam.Controllers
             if (id == null)
             {
                 new ToastContentBuilder()
-                             .AddText("Houve um problema ao cadastrar o documento")
-                             .AddText($"O arquivo não existe")
-                             .Show();
+                    .AddText("Houve um problema ao cadastrar o documento")
+                    .AddText($"O arquivo não existe")
+                    .Show();
                 return NotFound();
             }
 
@@ -98,9 +99,9 @@ namespace ProjetoQualyteam.Controllers
             if (arquivo == null)
             {
                 new ToastContentBuilder()
-                             .AddText("Houve um problema ao cadastrar o documento")
-                             .AddText($"O arquivo não existe")
-                             .Show();
+                    .AddText("Houve um problema ao cadastrar o documento")
+                    .AddText($"O arquivo não existe")
+                    .Show();
 
                 return NotFound();
             }
@@ -108,13 +109,43 @@ namespace ProjetoQualyteam.Controllers
         }
 
         private async Task<Documento> BuscarDocumentoPorId(int? id)
-            => await _context.Documentos.FirstOrDefaultAsync(documento => documento.Id == id);
-        
+            => await _context.Documentos.AsNoTracking().FirstOrDefaultAsync(documento => documento.Id == id);
+
+
+        public IActionResult CreateProcesso()
+           => View();
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateProcesso([Bind("NovoProcesso")] Processo processo)
+        {
+
+            if (ModelState.IsValid)
+            {
+                _context.Processos.Add(processo);
+                _context.SaveChangesAsync();
+
+                new ToastContentBuilder()
+                    .AddText($"Processo '{processo.NovoProcesso}' cadastrado com sucesso!")
+                    .Show();
+
+                return RedirectToAction(nameof(Create));
+            }
+            else
+            {
+                new ToastContentBuilder()
+                    .AddText("Houve um problema ao cadastrar o documento")
+                    .Show();
+            }
+
+            return View(processo);
+        }
 
         public IActionResult Create()
-            => View();
-        
-
+        {
+            ViewBag.ListarProcesso = _context.Processos.ToArray();
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -124,9 +155,9 @@ namespace ProjetoQualyteam.Controllers
             {
                 if (!ArquivoExiste(documento.Id))
                 {
+                    ViewBag.ListarProcesso = _context.Processos.ToArray();
                     if (!ArquivoValido(arquivoParaUpload))
                         return View(documento);
-                    
 
                     using (var memoryStream = new MemoryStream())
                     {
@@ -159,13 +190,14 @@ namespace ProjetoQualyteam.Controllers
 
         private bool ArquivoValido(IFormFile arquivoParaUpload)
             => arquivoParaUpload != null && VerificaExtensaoDoArquivo(arquivoParaUpload);
-        
+
 
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            if (!id.HasValue)
                 return NotFound();
-            
+           
+            ViewBag.ListarProcesso = _context.Processos.ToArray();
 
             var documento = await _context.Documentos.FindAsync(id);
 
@@ -186,7 +218,7 @@ namespace ProjetoQualyteam.Controllers
             {
                 try
                 {
-                    if(arquivoParaUpload != null)
+                    if (arquivoParaUpload != null)
                     {
                         var extensaoDoArquivo = Path.GetExtension(arquivoParaUpload.FileName).ToLower();
 
@@ -211,7 +243,7 @@ namespace ProjetoQualyteam.Controllers
 
                         _context.Update(documento);
                     }
-                    
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -245,7 +277,7 @@ namespace ProjetoQualyteam.Controllers
         {
             if (id == null)
                 return NotFound();
-            
+
 
             var documento = await BuscarDocumentoPorId(id);
 
@@ -273,6 +305,6 @@ namespace ProjetoQualyteam.Controllers
 
         private bool ArquivoExiste(int Id)
             => _context.Documentos.Any(documento => documento.Id == Id);
-        
+
     }
 }

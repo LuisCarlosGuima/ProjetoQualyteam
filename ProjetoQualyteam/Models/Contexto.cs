@@ -15,6 +15,7 @@ namespace ProjetoQualyteam.Models
         }
             
         public DbSet<Documento> Documentos { get; set; }
+        public DbSet<Processo> Processos { get; set; }
 
     }
 }
