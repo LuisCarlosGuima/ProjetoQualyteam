@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -144,6 +145,9 @@ namespace ProjetoQualyteam.Controllers
         public IActionResult Create()
         {
             ViewBag.ListarProcesso = _context.Processos.ToArray();
+
+            ViewBag.ListarCategoria = _context.Categorias.ToArray();
+
             return View();
         }
 
@@ -196,8 +200,10 @@ namespace ProjetoQualyteam.Controllers
         {
             if (!id.HasValue)
                 return NotFound();
-           
+
             ViewBag.ListarProcesso = _context.Processos.ToArray();
+
+            ViewBag.ListarCategoria = _context.Categorias.ToArray();
 
             var documento = await _context.Documentos.FindAsync(id);
 
@@ -306,5 +312,20 @@ namespace ProjetoQualyteam.Controllers
         private bool ArquivoExiste(int Id)
             => _context.Documentos.Any(documento => documento.Id == Id);
 
+        [HttpGet]
+        public virtual JsonResult BuscaIdCategoria(int? Id)
+        {
+            var id = Convert.ToInt32(Id);
+            var xpto = _context.Categorias
+                            .Where(categoria => categoria.Idprocesso == id)
+                            .OrderBy(categoria => categoria.NomeCategoria)
+                            .Select(categoria => new { Id = categoria.Id, NomeCategoria = categoria.NomeCategoria})
+                            .ToList(); //.ToSelectList(x => x.Id, x => x.Name);
+
+            return Json(xpto);
+        }
     }
+
+
+
 }

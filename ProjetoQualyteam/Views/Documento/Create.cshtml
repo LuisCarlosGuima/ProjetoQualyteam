@@ -21,19 +21,25 @@
                 <input required asp-for="Titulo" class="form-control" />
                 <span asp-validation-for="Titulo" class="text-danger"></span>
             </div>
+
             <div class="alert-danger" asp-validation-summary="ModelOnly"> </div>
             <div class="form-group">
                 <label asp-for="Processo" class="control-label"> </label>
-                <select required asp-for="Processo" class="form-control" asp-items="@(new SelectList(@ViewBag.ListarProcesso,"NovoProcesso","NovoProcesso"))">
+                <select required id="listaDeProcesso" asp-for="Processo" class="form-control" asp-items="@(new SelectList(@ViewBag.ListarProcesso,"Id","NovoProcesso"))">
                     <option disabled selected hidden>Selecione um processo</option>
                 </select>
                 <span asp-validation-for="Processo" class="text-danger"></span>
             </div>
+
+
             <div class="form-group">
-                <label asp-for="Categoria" class="control-label"></label>
-                <input required asp-for="Categoria" class="form-control" />
+                <label asp-for="Categoria" class="control-label"> </label>
+                <select required id="listaDeCategorias" asp-for="Categoria" class="form-control" asp-items="@(new SelectList(@ViewBag.ListarCategoria,"Id","NomeCategoria"))">
+                    <option disabled selected hidden>Selecione um processo</option>
+                </select>
                 <span asp-validation-for="Categoria" class="text-danger"></span>
             </div>
+
             <div>
                 <input required class="form-control" name="arquivoParaUpload" type="file" accept="application/pdf,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel,application/vnd.ms-word, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
                 <br />
@@ -48,10 +54,40 @@
     </div>
 </div>
 
-
-
-
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $("#listaDeProcesso").change(function () {
+
+            let Id = $("#listaDeProcesso").val();
+
+            $.ajax({
+                url: "/Documento/BuscaIdCategoria/" + Id,
+                success: function (obj) {
+                    if (obj != null) {
+                        var data = obj;
+                        var selectbox = $('#listaDeCategorias');
+                        selectbox.empty();
+                        $.each(data, function (i, d) {
+                            debugger;
+                            $('<option>').val(d.id).text(d.nomeCategoria).appendTo(selectbox);
+                        });
+                    }
+                
+
+                //success: function (obj) {
+                //if (obj != null) {
+                //    var data = obj.data;
+                //    var selectbox = $('#empresa');
+                //    selectbox.find('option').remove();
+                //    $.each(data, function (i, d) {
+                //        $('<option>').val(d.IdEmpresa).text(d.Nome).appendTo(selectbox);
+                //    });
+                //}
+            }
+            });
+        });
+    </script>
+
 }

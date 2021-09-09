@@ -14,7 +14,7 @@ namespace ProjetoQualyteam.Models
     public class Documento
     {
         [Required]
-        
+
         [Display(Name = "Código")]
         [Column("Id")]
         public int Id { get; set; }
@@ -33,7 +33,7 @@ namespace ProjetoQualyteam.Models
         [Display(Name = "Categoria")]
         [Column("Categoria")]
         public string Categoria { get; set; }
-        
+
         [Column("extensaoarquivo")]
         public string ExtensaoDoArquivo { get; set; }
 
@@ -46,10 +46,28 @@ namespace ProjetoQualyteam.Models
     {
         [Required]
         [Column("Processo")]
-        [Display(Name="Nome do Processo")]
+        [Display(Name = "Nome do Processo")]
         public string NovoProcesso { get; set; }
 
         [Key]
         public int Id { get; set; }
     }
+
+    [Table("Categoria")]
+    public class Categoria
+    {
+        [Required]
+        [Column("categoria")]
+        [Display(Name ="Nome categoria")]
+        public string NomeCategoria { get; set; }
+
+        [Key]
+        public int Id { get; set; }
+
+        [Column("Idprocesso")]
+        public int Idprocesso { get; set; }
+
+    }
+
+
 }
